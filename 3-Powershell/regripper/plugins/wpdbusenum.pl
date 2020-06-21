@@ -24,6 +24,7 @@ my %config = (hive          => "System",
               hasDescr      => 0,
               hasRefs       => 0,
               version       => 20200515);
+
 sub getConfig{return %config}
 
 sub getShortDescr {
