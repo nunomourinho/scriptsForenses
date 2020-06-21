@@ -5,6 +5,7 @@ Têm como objetivo a recolha de informação em Windows, e a exportação dos re
 
 No LaTeX, para poder utilizar listagens, use o código:
 
+``` latex
 \tcbuselibrary{listings,breakable}
 \tcbuselibrary{minted,skins}
 
@@ -77,3 +78,4 @@ No LaTeX, para poder utilizar listagens, use o código:
 \definecolor{tempobg}{rgb}{0.75,0.75,0.75}
 \definecolor{observacoesbg}{rgb}{0.95,0.0,0.0}
 
+```
