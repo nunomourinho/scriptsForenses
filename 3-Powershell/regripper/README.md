@@ -1,6 +1,11 @@
 # RegRipper3.0
  RegRipper3.0
 
+Nota: Foi feito um clone do projeto original.
+Encontra-se aqui incluido só por questºao de conveniencia.
+
+Deve correr o script 2-....ps1
+
 WHAT'S NEW
 
 With the GUI (rr.exe), you no longer have to select a profile; instead, select the
