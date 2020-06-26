@@ -1,5 +1,3 @@
-declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_lista_rede.txt"
-
 shopt -s extglob
 
 timestamp() {
@@ -8,6 +6,7 @@ timestamp() {
 
 escreveSecao() {
   echo "Relatório: Escrita a seccao " $1 " no ficheiro " $ficheiro
+  echo "\newpage" >> $ficheiro
   echo "\section{"$1"}" >> $ficheiro
 }
 
@@ -70,12 +69,14 @@ executaSE() {
 
 
 comandos() {
+declare ficheiro="/root/plaso_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_pscan.txt"
+
 cd /mnt/imagens
 
-executa "VolDiff - Execução de plugins específicos para pesquisar malware presente na memória" python2 /root/github/scriptsForenses/2-VolDiffWin10/VolDiff.py ./20200601.mem Win10x64_10586 --malware-checks --output-dir /root/voldiffresults
+escreveSecao "Plaso - Criação da Timeline"
+executa "pSteal - Criação da timeline, e ordenação da timeline" psteal.py --source /mnt/images/CIF2020.001 -o l2tcsv -w /root/timeline.csv
 
 }
 
 touch $ficheiro
-escreveSecao "Análise de Malware Presente em memória"
 comandos
