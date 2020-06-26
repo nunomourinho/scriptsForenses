@@ -78,4 +78,4 @@ function Executa-Comandos() {
 cd C:\IPED-3.17.2\iped-3.17.2
 Get-Timestamp
 Escreve-Seccao "Processar Imagem pelo processador de evidências digitais IPED"
-Executa-Comandos "Inventário e de processamento da imagem" "iped -d C:\imagem\CIF2020.001 -o c:\resultados"
+Executa-Comandos "Inventário e de processamento da imagem" "./iped.exe -d C:\imagem\CIF2020.001 -o c:\resultados"
