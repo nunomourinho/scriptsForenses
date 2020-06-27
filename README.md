@@ -1,7 +1,7 @@
 # scriptsForenses
 Scripts para recolha de informação Forense
 
-Têm como objetivo a recolha de informação em Windows, e a exportação dos resultados para LaTeX.
+Têm como objetivo a recolha de informação em Windows e Linux, e a exportação dos resultados para LaTeX.
 
 No LaTeX, para poder utilizar listagens, use o código:
 
