@@ -71,10 +71,8 @@ executaSE() {
 comandos() {
 declare ficheiro="/root/plaso_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_pscan.txt"
 
-cd /mnt/imagens
-
 escreveSecao "Plaso - Criação da Timeline"
-executa "pSteal - Criação da timeline, e ordenação da timeline" psteal.py --source /mnt/images/CIF2020.001 -o l2tcsv -w /root/timeline.csv
+executa "pSteal - Criação da timeline, e ordenação da timeline" psteal.py --source /mnt/imagens/CIF2020.001 -o l2tcsv -w /root/timeline.csv --partitions all
 
 }
 
