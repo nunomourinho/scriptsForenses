@@ -69,13 +69,13 @@ executaSE() {
 
 
 comandos() {
-declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_malscanconf.txt"
+declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_dumpfiles.txt"
 
+mkdir /root/ficheiros
 cd /mnt/imagens
 
-escreveSecao "MalConfScan - Deteção de configurações do malware"
-#executa "MalConfScan - Deteção de strings dentro do malware" 
-vol.py malstrscan -a -f 20200601.mem --profile=Win10x64_10586 -p 4344
+escreveSecao "Dumpfiles - Extrai da memória os ficheiros para dentro de uma pasta"
+executa "Extrai os ficheiros encontrados na memória para dentro de uma pasta, para análise posterior" vol.py dumpfiles -f 20200601.mem --profile=Win10x64_10586 -D /root/ficheiros
 
 }
 

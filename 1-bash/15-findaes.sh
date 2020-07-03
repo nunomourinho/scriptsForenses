@@ -69,13 +69,15 @@ executaSE() {
 
 
 comandos() {
-declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_malscanconf.txt"
+declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_dumpfiles.txt"
 
+mkdir /root/5032
+mkdir /root/4344
 cd /mnt/imagens
 
-escreveSecao "MalConfScan - Deteção de configurações do malware"
-#executa "MalConfScan - Deteção de strings dentro do malware" 
-vol.py malstrscan -a -f 20200601.mem --profile=Win10x64_10586 -p 4344
+escreveSecao "Memdump - Extrai memória do processo malicioso ElesVemAi.exe(5032)"
+executa "Extrai os ficheiros encontrados na memória do processo 5032 para dentro de uma pasta, para análise posterior" vol.py memdump -f 20200601.mem --profile=Win10x64_10586 -p 5032 --dump-dir /root/5032
+executa "Extrai os ficheiros encontrados na memória do processo 4344 para dentro de uma pasta, para análise posterior" vol.py memdump -f 20200601.mem --profile=Win10x64_10586 -p 4344 --dump-dir /root/4344
 
 }
 

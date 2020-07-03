@@ -10,6 +10,12 @@ escreveSecao() {
   echo "\section{"$1"}" >> $ficheiro
 }
 
+obs() {
+  echo "\begin{observacoes}" >> $ficheiro
+  echo $1 >> $ficheiro
+  echo "\end{observacoes}" >> $ficheiro
+}
+
 executa() {
   declare msg=$1
   shift
@@ -35,16 +41,13 @@ executa() {
   echo "\end{tempo}" >>$ficheiro
 }
 
-executaSE() {
+executaScript() {
   declare msg=$1
   shift
-  declare comandos=$@
-  echo "Comandos a executar DEBUG"
-  echo $comandos
-  read
-
+  declare comandos=`cat $1`
+  declare execcomando=$1
   echo "Relatório: " $comandos " > " $ficheiro
-  echo "\textbf{Descrição do propósito:}" $msg "\newline \newline">> $ficheiro
+  echo "\textbf{Descrição do propósito:}" $msg " \newline \newline" >> $ficheiro
   echo "Comando executado: " >> $ficheiro
   echo "\begin{bashcode}" >> $ficheiro
   echo $comandos >> $ficheiro
@@ -52,9 +55,7 @@ executaSE() {
   echo "Resultado(s): \newline" >>$ficheiro
   echo "\begin{bashcode}" >>$ficheiro
   start=`date --iso-8601=ns`
-  echo "$comandos" > /tmp/comandos.sh
-  bash -c 'chmod 700 /tmp/comandos.sh'
-  $comandos | tee -a $ficheiro
+  /usr/bin/time -v -o /tmp/tempo_decorrido.txt bash $execcomando 2>&1 | tee -a $ficheiro
   end=`date --iso-8601=ns`
   echo "\end{bashcode}" >>$ficheiro
   echo "Tempo decorrido: \newline" >>$ficheiro
@@ -68,15 +69,19 @@ executaSE() {
 
 
 
+
+
+
 comandos() {
-declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_malscanconf.txt"
+declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_dumpfiles.txt"
 
-cd /mnt/imagens
+escreveSecao "Find AES - Procura chaves AES na memória, e grava as chaves encontradas num ficheiro"
+executa "Pesquisa as chaves AES na memória" ./findaes-1.2/findaes /mnt/imagens/20200601.mem > /tmp/resultados.txt
+executa "Detalhe das chaves encontradas" cat /tmp/resultados.txt
 
-escreveSecao "MalConfScan - Deteção de configurações do malware"
-#executa "MalConfScan - Deteção de strings dentro do malware" 
-vol.py malstrscan -a -f 20200601.mem --profile=Win10x64_10586 -p 4344
-
+echo 'echo "Chaves Descodificadas para ASCII:"; echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"; echo "    NUM ASCII"; cat /tmp/resultados.txt | grep -A1 Found | grep -v Found | while read line ; do echo $line | xxd -r -p ; echo \n; done | sort | uniq -c' > /tmp/script.sh
+executaScript "Converte as chaves de hexadecimal para ascii" /tmp/script.sh
+obs "Foi encontrada a chave, com a maior frequência  ----- Nenhuma das chaves encontradas é válida ---- Não foi encontrada nenhuma chave"
 }
 
 touch $ficheiro

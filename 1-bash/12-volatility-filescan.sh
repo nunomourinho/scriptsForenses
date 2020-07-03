@@ -73,9 +73,8 @@ declare ficheiro="/root/volatility_"$disco$(date +"%Y-%m-%d_%H-%M-%S")"_malscanc
 
 cd /mnt/imagens
 
-escreveSecao "MalConfScan - Deteção de configurações do malware"
-#executa "MalConfScan - Deteção de strings dentro do malware" 
-vol.py malstrscan -a -f 20200601.mem --profile=Win10x64_10586 -p 4344
+escreveSecao "Filescan - Listagem de ficheiros dentro da memória"
+executa "Identificar os ficheiros que são possíveis de extrair da memória" vol.py filescan -f 20200601.mem --profile=Win10x64_10586
 
 }
 

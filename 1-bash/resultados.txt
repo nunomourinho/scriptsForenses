@@ -1,0 +1,1 @@
+Relatório:  ./findaes-1.2/findaes /mnt/imagens/20200601.mem  >  /root/volatility_2020-07-03_10-27-41_dumpfiles.txt
